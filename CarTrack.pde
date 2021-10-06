@@ -1,24 +1,38 @@
 Car car;
 boolean loop;
+Car[] cars;
+int numOfCars;
 
 void setup() {
   colorMode(HSB);
+  numOfCars=5;
   size(800, 800);
+  cars=new Car[numOfCars];
   initArray();
   loop=false;
 }
 
 void draw() {
   background(255);
-  if (loop) {
-    car.moveX();
-    car.replaceString("Volvo"+frameCount);
+
+  for (int i=0; i<cars.length; i++) {
+    if (loop) {
+      cars[i].moveX();
+      cars[i].replaceString("Volvo"+frameCount);
+    }
+    cars[i].display();
   }
-  car.display();
 }
 
+
 void initArray() {
-  car = new Car(40, height/2, 123, 2, "Volvo", 50);
+  int diffFactor=height/numOfCars;
+  int space=diffFactor/numOfCars;
+
+  for (int i=0; i<cars.length; i++) {
+    car = new Car(40, i*(diffFactor-space), 123, 2, "Volvo", 50);
+    cars[i]=car;
+  }
 }
 
 void mousePressed() {
